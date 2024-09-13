@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         rb2D = GetComponent<Rigidbody2D>();
         actions = new PlayerActions();
     }
@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         CaptureInput();
+        RotatePlayer();
     }
 
     private void FixedUpdate()
@@ -67,6 +68,19 @@ public class PlayerMovement : MonoBehaviour
         currentSpeed = speed;
         ModifySpriteRenderer(1f);
         usingDash = false;  
+    }
+
+    private void RotatePlayer()
+    {
+        if (moveDirection.x >= 0.1f)
+        {
+            spriteRenderer.flipX = false;
+        }
+        if (moveDirection.x < 0f)
+        {
+            spriteRenderer.flipX = true;
+        }
+
     }
 
     private void ModifySpriteRenderer(float alpha)
